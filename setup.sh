@@ -142,6 +142,7 @@ chmod 644 /home/admin/flag.txt
 # ── Step 5: Generate SSH key pair for lateral movement ───────────────────────
 echo "[+] Step 5: Generating SSH key pair for lateral movement challenge..."
 mkdir -p /home/alpha/.ssh
+rm -f /home/alpha/.ssh/id_rsa /home/alpha/.ssh/id_rsa.pub
 ssh-keygen -t rsa -b 2048 -f /home/alpha/.ssh/id_rsa -N "" -C "novatech-deploy-key" -q
 chown -R alpha:alpha /home/alpha/.ssh
 chmod 700 /home/alpha/.ssh
