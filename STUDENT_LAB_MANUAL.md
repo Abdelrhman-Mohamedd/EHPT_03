@@ -27,6 +27,18 @@ Your objective: reach every internal network segment and prove that an attacker 
 
 ---
 
+## 💻 Attacker Environment & Required Tools
+
+You will act as the external attacker. **You must use a separate Virtual Machine (e.g., Kali Linux, Parrot Security OS) to solve this lab.** Your attacker VM must be on the same network (Bridged or NAT Network) as the NovaTech Lab Appliance.
+
+**Ensure the following tools are installed on your Kali VM:**
+* **`ssh` / `scp`:** The built-in OpenSSH client (essential for port forwarding and ProxyJump).
+* **`proxychains4`:** Used to route traffic from standard tools (like `curl` or `nmap`) through your SSH SOCKS proxy.
+* **`curl`:** Used to interact with internal HTTP APIs.
+* **Web Browser + FoxyProxy (Optional):** Highly recommended for viewing internal web dashboards through your SOCKS5 proxy.
+
+---
+
 ## 🗺️ Network Topology
 
 ```

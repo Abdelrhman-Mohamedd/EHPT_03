@@ -1,5 +1,16 @@
 # Lab 03 Student Quickstart Guide — NovaTech Corp
 
+## 🛠️ Attacker Environment Requirements
+To solve this lab, you **must use a separate attacker VM** (such as Kali Linux, Parrot OS, or a custom Ubuntu build) bridged or NAT'd to the same network as the lab appliance.
+
+**Required Tools on your Attacker VM:**
+- `ssh` and `scp` (OpenSSH Client)
+- `curl` (Command-line HTTP client)
+- `proxychains4` (For routing tools through SOCKS tunnels)
+- **Optional:** A web browser with the *FoxyProxy* extension (for easy SOCKS5 routing)
+
+---
+
 ## Briefing Portal
 ```
 http://<VM_IP>:8083   →   shows your personalized SSH password
