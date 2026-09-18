@@ -151,7 +151,7 @@ chmod 644 /home/alpha/.ssh/id_rsa.pub
 
 # Install the public key as admin's authorized key (for BETA-1 SSH)
 mkdir -p /home/admin/.ssh
-cp /home/pentest/.ssh/id_rsa.pub /home/admin/.ssh/authorized_keys
+cp /home/alpha/.ssh/id_rsa.pub /home/admin/.ssh/authorized_keys
 chown -R admin:admin /home/admin/.ssh
 chmod 700 /home/admin/.ssh
 chmod 600 /home/admin/.ssh/authorized_keys
