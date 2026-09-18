@@ -1,0 +1,98 @@
+/* Lab 03 — NovaTech Corp Briefing Portal Stylesheet */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+    --primary:#e67e22;--primary-dk:#d35400;
+    --bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;
+    --border:#2a3347;--text:#dce3f0;--text-muted:#7a8aaa;
+    --green:#27ae60;--red:#e74c3c;--radius:10px;
+    --shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
+
+/* Navbar */
+.navbar{display:flex;align-items:center;padding:0 28px;height:62px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;flex-shrink:0}
+.brand-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--primary-dk));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:white}
+.nav-links{display:flex;list-style:none;gap:4px;flex:1}
+.nav-links a{display:block;padding:7px 14px;color:var(--text-muted);text-decoration:none;border-radius:6px;font-size:.9rem;font-weight:500;transition:background .15s,color .15s}
+.nav-links a:hover,.nav-links a.active{background:var(--bg3);color:var(--text)}
+.nav-links a.active{color:var(--primary)}
+.user-badge{display:flex;align-items:center;gap:10px}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#c0392b);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:white}
+.user-info{font-size:.8rem}.user-name{font-weight:600}.user-role{color:var(--text-muted);font-size:.72rem}
+
+/* Container */
+.container{max-width:1100px;margin:0 auto;padding:32px 24px}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#1a2540,#0f1117);border:1px solid var(--border);border-radius:var(--radius);padding:40px;margin-bottom:28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(230,126,34,.15),transparent 70%);pointer-events:none}
+.hero-badge{display:inline-block;padding:4px 12px;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);color:#e74c3c;border-radius:20px;font-size:.78rem;font-weight:700;letter-spacing:.05em;margin-bottom:14px}
+.hero-title{font-size:2rem;font-weight:800;background:linear-gradient(135deg,#fff 40%,var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.hero-subtitle{color:var(--text-muted);font-size:1rem}
+
+/* Credentials Box */
+.creds-box{background:var(--bg2);border:2px solid var(--primary);border-radius:var(--radius);padding:28px;margin-bottom:28px}
+.creds-box h2{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+.creds-box p{color:var(--text-muted);font-size:.88rem;margin-bottom:18px}
+.creds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.cred-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px}
+.cred-label{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px}
+.cred-value{display:block;font-family:'Courier New',monospace;font-size:.95rem;color:var(--text);background:none;border:none;word-break:break-all}
+.cred-password{color:var(--primary);font-size:1rem;font-weight:700}
+.cmd-block{background:#0a0d14;border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-family:'Courier New',monospace;font-size:.88rem;color:#a8d8a8}
+.cmd-label{color:var(--text-muted);margin-right:8px}
+
+/* Section title */
+.section-title{font-size:.85rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin:28px 0 14px}
+
+/* Segment grid */
+.segment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:28px}
+.segment-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.segment-dmz{border-top:3px solid var(--green)}
+.segment-alpha{border-top:3px solid var(--primary)}
+.segment-beta{border-top:3px solid var(--red)}
+.seg-header{font-weight:700;font-size:1rem;margin-bottom:8px}
+.seg-ip{font-family:'Courier New',monospace;font-size:1.1rem;color:var(--primary);margin-bottom:6px}
+.seg-detail{font-size:.82rem;color:var(--text-muted);margin-bottom:12px;line-height:1.7}
+.seg-access{font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:12px;display:inline-block}
+.access-open{background:rgba(39,174,96,.15);color:var(--green);border:1px solid rgba(39,174,96,.3)}
+.access-locked{background:rgba(231,76,60,.15);color:var(--red);border:1px solid rgba(231,76,60,.3)}
+
+/* Challenge list */
+.challenge-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.challenge-card{display:flex;align-items:flex-start;gap:18px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:border-color .2s}
+.challenge-card:hover{border-color:var(--primary)}
+.ch-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dk));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:white}
+.ch-title{font-weight:700;font-size:1rem;margin-bottom:6px}
+.ch-desc{font-size:.88rem;color:var(--text-muted);margin-bottom:8px;line-height:1.55}
+.ch-hint{font-size:.82rem;color:var(--text-muted);background:#0a0d14;border:1px solid var(--border);padding:8px 12px;border-radius:6px;font-family:'Courier New',monospace}
+
+/* Notice */
+.notice-box{background:rgba(230,126,34,.08);border:1px solid rgba(230,126,34,.25);border-radius:var(--radius);padding:14px 18px;font-size:.88rem;color:var(--text-muted)}
+.notice-box code{color:var(--primary);background:rgba(230,126,34,.1);padding:1px 5px;border-radius:3px}
+
+/* Footer */
+.footer{margin-top:60px;background:var(--bg2);border-top:1px solid var(--border);padding:18px 24px}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);flex-wrap:wrap;gap:8px}
+.footer-id{color:var(--primary);font-weight:600}
+code{background:rgba(230,126,34,.1);color:var(--primary);padding:1px 5px;border-radius:3px;font-size:.88em}
+
+/* Tables (topology/tools pages) */
+.table-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px;overflow-x:auto}
+.data-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.data-table th{padding:10px 14px;text-align:left;color:var(--text-muted);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid var(--border);background:var(--bg3)}
+.data-table td{padding:11px 14px;border-bottom:1px solid var(--border)}
+.data-table tr:hover td{background:var(--bg3)}
+.data-table code{font-size:.85em}
+
+/* Page header */
+.page-header{margin-bottom:24px}
+.page-title{font-size:1.75rem;font-weight:800;margin-bottom:6px}
+.page-subtitle{color:var(--text-muted)}
+
+@media(max-width:768px){
+    .navbar{padding:0 16px}.nav-links{display:none}
+    .container{padding:20px 16px}.hero{padding:24px 16px}
+    .hero-title{font-size:1.5rem}.creds-grid{grid-template-columns:1fr 1fr}
+}
