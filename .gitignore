@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Lab runtime artifacts (generated per-student, never commit)
+*.buildinfo
+/tmp/lab03_setup*.log
+/tmp/lab03_setup_exit
