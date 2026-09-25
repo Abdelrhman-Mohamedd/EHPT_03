@@ -113,13 +113,22 @@ EOF
 chmod 440 /etc/sudoers.d/lab03-setup
 visudo -c -f /etc/sudoers.d/lab03-setup && echo "    Sudoers rule OK." || echo "[!] sudoers syntax error!"
 
-# ---- 7. Harden SSH ----
-echo "[+] Step 7: Hardening SSH configuration..."
+# ---- 7. Harden SSH & Generate Host Keys ----
+echo "[+] Step 7: Hardening SSH and ensuring host keys exist..."
+/usr/bin/ssh-keygen -A 2>/dev/null || true
 sed -i 's/^#*PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
 # Ensure SSH is enabled (needed for the pivot exercise)
 systemctl enable sshd
 systemctl restart sshd 2>/dev/null || true
-echo "    Root SSH login disabled. sshd enabled for pivot exercise."
+echo "    Host keys generated. Root SSH login disabled. sshd enabled for pivot exercise."
+
+# ---- 7b. Disable SELinux and Firewalld (Lab Environment Fix) ----
+echo "[+] Step 7b: Disabling SELinux and Firewalld for lab networking..."
+setenforce 0 2>/dev/null || true
+sed -i 's/^SELINUX=.*/SELINUX=permissive/' /etc/selinux/config 2>/dev/null || true
+systemctl stop firewalld 2>/dev/null || true
+systemctl disable firewalld 2>/dev/null || true
+echo "    SELinux set to permissive and Firewalld disabled."
 
 # ---- 8. Install iproute2 / tools needed for netns ----
 echo "[+] Step 8: Ensuring network namespace tools available..."

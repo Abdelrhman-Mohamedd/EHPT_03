@@ -502,9 +502,9 @@ systemctl restart php-fpm  || systemctl restart php8.3-fpm || systemctl restart 
 systemctl restart httpd    || systemctl restart apache2    || true
 
 if [ "$IS_PRODUCTION" -eq 1 ]; then
-    echo "[+] Production purge..."
-    rm -f "${SCRIPT_DIR}/setup.sh" "${SCRIPT_DIR}/generate_student_flags.py"
-    rm -rf "${SCRIPT_DIR}/.git"
+    echo "[+] Production purge disabled to allow lab recovery (Finding 3)"
+    # rm -f "${SCRIPT_DIR}/setup.sh" "${SCRIPT_DIR}/generate_student_flags.py"
+    # rm -rf "${SCRIPT_DIR}/.git"
 fi
 
 echo "==[🎉] Lab 03 ready for ${STUDENT_ID}!"
