@@ -94,7 +94,7 @@ The briefing portal at `http://<VM_IP>:8083` will display your personalized SSH 
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>ssh -L</code></td>
       <td style="padding:10px;border:1px solid #bdc3c7;">ALPHA-1 HTTP :80</td>
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>FLAG{LOCALFWD}</code></td>
-      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">20</td>
+      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">10</td>
     </tr>
     <tr style="background-color:#f9f9f9;">
       <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">2</td>
@@ -102,7 +102,7 @@ The briefing portal at `http://<VM_IP>:8083` will display your personalized SSH 
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>ssh -D</code> + proxychains</td>
       <td style="padding:10px;border:1px solid #bdc3c7;">ALPHA-2 HTTP :8080</td>
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>FLAG{SOCKS}</code></td>
-      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">20</td>
+      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">10</td>
     </tr>
     <tr>
       <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">3</td>
@@ -110,7 +110,7 @@ The briefing portal at `http://<VM_IP>:8083` will display your personalized SSH 
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>ssh -J</code></td>
       <td style="padding:10px;border:1px solid #bdc3c7;">ALPHA-2 SSH :22</td>
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>FLAG{PROXYJUMP}</code></td>
-      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">20</td>
+      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">10</td>
     </tr>
     <tr style="background-color:#f9f9f9;">
       <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">4</td>
@@ -118,7 +118,7 @@ The briefing portal at `http://<VM_IP>:8083` will display your personalized SSH 
       <td style="padding:10px;border:1px solid #bdc3c7;">Chained <code>-J</code> + <code>-L</code></td>
       <td style="padding:10px;border:1px solid #bdc3c7;">BETA-1 HTTP :9090</td>
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>FLAG{DOUBLEPIVOT}</code></td>
-      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">20</td>
+      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">10</td>
     </tr>
     <tr>
       <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">5</td>
@@ -126,7 +126,7 @@ The briefing portal at `http://<VM_IP>:8083` will display your personalized SSH 
       <td style="padding:10px;border:1px solid #bdc3c7;">Stolen <code>id_rsa</code></td>
       <td style="padding:10px;border:1px solid #bdc3c7;">BETA-1 SSH :22 as <code>admin</code></td>
       <td style="padding:10px;border:1px solid #bdc3c7;"><code>FLAG{LATERAL}</code></td>
-      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">20</td>
+      <td style="padding:10px;border:1px solid #bdc3c7;text-align:center;">10</td>
     </tr>
   </tbody>
 </table>
@@ -161,7 +161,7 @@ The briefing portal at `http://<VM_IP>:8083` will display your personalized SSH 
 <div style="flex:1;min-width:300px;background:#fdfefe;border:1px solid #dcdde1;padding:15px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.05);">
   <h4 style="color:#f39c12;margin-top:0;">⛓️ Challenge 4 — Double Pivot</h4>
   <p>Segment Beta (<code>172.16.50.0/24</code>) is only reachable <em>through</em> ALPHA-2. Chain two jumps or combine ProxyJump with a port forward:<br><br>
-  <code>ssh -J pentest@&lt;VM_IP&gt;:2222,alpha@10.10.10.20 -L 9090:172.16.50.10:9090 pentest@172.16.50.10 -N</code><br><br>
+  <code>ssh -J pentest@&lt;VM_IP&gt;:2222,alpha@10.10.10.20 -L 9090:172.16.50.10:9090 alpha@10.10.10.20 -N</code><br><br>
   Then <code>curl http://127.0.0.1:9090/</code> to get the flag from BETA-1.</p>
 </div>
 

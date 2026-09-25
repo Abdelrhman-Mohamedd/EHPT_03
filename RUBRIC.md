@@ -74,7 +74,7 @@
   - 0 pts: No ProxyJump evidence.
 
 #### Challenge 4 — Double Pivot (10 pts)
-- **Technique:** `ssh -J pentest@<VM_IP>:2222,alpha@10.10.10.20 -L 9090:172.16.50.10:9090 -N` + `curl http://127.0.0.1:9090/`
+- **Technique:** `ssh -J pentest@<VM_IP>:2222,alpha@10.10.10.20 -L 9090:172.16.50.10:9090 alpha@10.10.10.20 -N` + `curl http://127.0.0.1:9090/`
 - **Evidence required:**
   - Screenshot of the double-jump SSH command (two entries in `-J` or use of `~/.ssh/config` ProxyJump chain).
   - Screenshot of `curl` output from BETA-1 containing `FLAG{DOUBLEPIVOT}`.
