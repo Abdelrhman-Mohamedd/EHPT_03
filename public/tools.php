@@ -76,12 +76,13 @@ Host alpha2
 Host beta1
     HostName 172.16.50.10
     User     admin
+    IdentityFile ~/.ssh/alpha2_id_rsa
     ProxyJump alpha2
 
 # With this config:
-ssh alpha2                    # challenge 3
-ssh -L 9090:172.16.50.10:9090 -N beta1  # challenge 4
-ssh -i ./key.pem admin@beta1  # challenge 5 (change User to admin)
+ssh alpha2                                  # challenge 3
+ssh -L 9090:172.16.50.10:9090 -N alpha2    # challenge 4 (port-forward via ALPHA-2)
+ssh beta1                                   # challenge 5 (key in IdentityFile above)
     </pre>
 </div>
 <?php require_once 'footer.php'; ?>

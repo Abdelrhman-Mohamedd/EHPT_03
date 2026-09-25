@@ -31,7 +31,7 @@ Password: (shown on briefing portal after first-boot setup)
 | 1 | `LOCALFWD` | SSH local port forward | `ssh -L 8080:10.10.10.10:80 pentest@<IP> -p 2222 -N` |
 | 2 | `SOCKS` | Dynamic SOCKS5 proxy | `ssh -D 1080 -N pentest@<IP> -p 2222` |
 | 3 | `PROXYJUMP` | SSH ProxyJump | `ssh -J pentest@<IP>:2222 alpha@10.10.10.20` |
-| 4 | `DOUBLEPIVOT` | Double pivot (chained -J) | `ssh -J pentest@<IP>:2222,alpha@10.10.10.20 -L 9090:172.16.50.10:9090 dummy@172.16.50.10 -N` |
+| 4 | `DOUBLEPIVOT` | Double pivot (chained -J) | `ssh -J pentest@<IP>:2222,alpha@10.10.10.20 -L 9090:172.16.50.10:9090 alpha@10.10.10.20 -N` |
 | 5 | `LATERAL` | SSH key reuse | `ssh -i id_rsa -J pentest@<IP>:2222,alpha@10.10.10.20 admin@172.16.50.10` |
 
 ---
@@ -95,7 +95,7 @@ chmod 600 ./alpha2_id_rsa
 # Method A: Chained ProxyJump + local port forward
 ssh -J pentest@<VM_IP>:2222,alpha@10.10.10.20 \
     -L 9090:172.16.50.10:9090 \
-    pentest@172.16.50.10 -N &
+    alpha@10.10.10.20 -N &
 
 curl http://127.0.0.1:9090/
 
@@ -107,11 +107,11 @@ curl http://127.0.0.1:9090/
 #     User pentest
 # Host alpha2
 #     HostName 10.10.10.20
-#     User pentest
+#     User alpha
 #     ProxyJump pivot1
 # Host beta1
 #     HostName 172.16.50.10
-#     User pentest
+#     User admin
 #     ProxyJump alpha2
 ssh -L 9090:172.16.50.10:9090 -N beta1 &
 curl http://127.0.0.1:9090/

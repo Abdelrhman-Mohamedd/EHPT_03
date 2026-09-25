@@ -377,6 +377,7 @@ WantedBy=multi-user.target
 SVC
 
 # Write netns setup/teardown helper scripts
+mkdir -p /opt/lab03-setup
 cat > /opt/lab03-setup/netns_setup.sh << 'NSSETUP'
 #!/bin/bash
 set -e
@@ -432,7 +433,7 @@ done
 # ── Step 10: Configure main SSH (PIVOT-1 :2222) ───────────────────────────────
 echo "[+] Step 10: Configuring PIVOT-1 SSH on port 2222..."
 # Allow AllowTcpForwarding for pentest user on port 2222
-cat >> /etc/ssh/sshd_config << 'SSHCFG'
+grep -q 'Lab 03: PIVOT-1' /etc/ssh/sshd_config || cat >> /etc/ssh/sshd_config << 'SSHCFG'
 
 # Lab 03: PIVOT-1 — pentest user SSH access with tunneling enabled
 Port 2222

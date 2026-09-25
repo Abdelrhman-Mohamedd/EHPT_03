@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # first_boot_setup.sh — Student First-Boot Personalization Wizard (GUI Mode)
-# Lab 03: OperaLink Logistics Network — Pivoting, Tunneling & Lateral Movement
+# Lab 03: NovaTech Corp — Pivoting, Tunneling & Lateral Movement
 # Triggered via GNOME autostart .desktop file.
 # Uses zenity GUI dialogs. Removes its own autostart entry on success.
 # ==============================================================================
@@ -71,7 +71,7 @@ done
 
 # ---- Progress: Run setup.sh, show progress bar ----
 (
-    echo "# Provisioning OperaLink lab environment for ${SID}..."
+    echo "# Provisioning NovaTech lab environment for ${SID}..."
     echo "10"
 
     sudo "$SETUP_SCRIPT" "$SID" --production > /tmp/lab03_setup.log 2>&1
