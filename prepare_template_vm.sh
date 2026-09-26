@@ -136,6 +136,52 @@ dnf install -y iproute2 iptables-nft 2>/dev/null || dnf install -y iproute iptab
 modprobe tun 2>/dev/null || true
 echo "    Network namespace tools ready."
 
+# ---- 8b. Network Isolation — Block student internet access (A-09) ----
+echo "[+] Step 8b: Configuring iptables — blocking internet egress (A-09)..."
+# Flush any existing OUTPUT rules first
+iptables -F OUTPUT 2>/dev/null || true
+
+# Layer 1 — iptables OUTPUT egress filter
+# Allow: established/related connections (so lab services keep working)
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+# Allow: loopback
+iptables -A OUTPUT -o lo -j ACCEPT
+# Allow: RFC1918 private ranges (covers lab subnets 10.10.10.0/24 + 172.16.50.0/24)
+iptables -A OUTPUT -d 10.0.0.0/8     -j ACCEPT
+iptables -A OUTPUT -d 172.16.0.0/12  -j ACCEPT
+iptables -A OUTPUT -d 192.168.0.0/16 -j ACCEPT
+# Block: everything else (public internet)
+iptables -A OUTPUT -j REJECT --reject-with icmp-net-prohibited
+
+# Persist rules across reboots via iptables-save + @reboot cron
+IPTABLES_SAVE_FILE="/etc/iptables-lab03.rules"
+iptables-save > "$IPTABLES_SAVE_FILE" 2>/dev/null || true
+if [ -f "$IPTABLES_SAVE_FILE" ]; then
+    # Install a @reboot cron to restore rules on boot
+    (crontab -l 2>/dev/null | grep -v 'iptables-lab03'; \
+     echo "@reboot /sbin/iptables-restore < ${IPTABLES_SAVE_FILE}") | crontab -
+    echo "    iptables rules saved to ${IPTABLES_SAVE_FILE} (restored on reboot via cron)."
+fi
+echo "    Firewall: ALL outbound internet traffic BLOCKED (RFC1918 + loopback allowed)"
+
+# Layer 2 — DNS Blackhole (defense in depth)
+echo "[+] Step 8c: Configuring DNS Blackhole..."
+# Stop NetworkManager from overwriting resolv.conf
+if command -v nmcli >/dev/null 2>&1; then
+    nmcli general logging level WARN 2>/dev/null || true
+    # Tell NM not to manage DNS
+    mkdir -p /etc/NetworkManager/conf.d
+    cat > /etc/NetworkManager/conf.d/no-dns.conf << 'NMCONF'
+[main]
+dns=none
+NMCONF
+fi
+rm -f /etc/resolv.conf
+echo "nameserver 127.0.0.1" > /etc/resolv.conf
+# Lock the file so no process can overwrite it
+chattr +i /etc/resolv.conf 2>/dev/null || true
+echo "    DNS locked to 127.0.0.1. External name resolution is BLOCKED."
+
 # ---- 9. Pre-login banner ----
 echo "[+] Step 9: Setting pre-login banner..."
 cat << 'BANNER' > /etc/issue.net
@@ -162,6 +208,7 @@ echo "     Student Sudo    : ONLY /opt/lab03-setup/setup.sh (nothing else)"
 echo "     First-Boot UI   : /home/student/first_boot_setup.sh (contains NO salt)"
 echo "     SSH Service     : enabled (required for pivot exercise)"
 echo "     Root Login      : LOCKED"
+echo "     Internet Access : BLOCKED (iptables OUTPUT + DNS blackhole 127.0.0.1)"
 echo ""
 echo "     Before distribution:"
 echo "       1. Change student password:  passwd ${STUDENT_USER}"
